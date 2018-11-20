@@ -6,8 +6,13 @@ from misc.helpers import *
 from misc.digits import Digits
 
 ###################################################################
-# Models                                                          #
+# Model                                                           #
 ###################################################################
+@print_info
+def linear_model(x):
+    with tf.name_scope("Model"):
+        pred = tf.layers.dense(inputs=x, units=10, activation=tf.nn.softmax)
+        return tf.identity(pred, name="prediction")
 
 @print_info
 def cnn_model(x):
@@ -111,7 +116,7 @@ def main(settings):
     y = tf.placeholder(tf.float32, [None, 10], name='y')
 
     # model
-    hx = cnn_model(x)
+    hx = linear_model(x)
 
     # accuracy
     accuracy = tf.reduce_mean(tf.cast(tf.equal(tf.argmax(hx, 1), tf.argmax(y, 1)), tf.float32))

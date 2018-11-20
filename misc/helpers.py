@@ -70,16 +70,13 @@ class FormatDict:
 
 def save_model(sess, export_path, output_node):
     # saving model
-    checkpoint = os.path.join(export_path, "model.ckpt")
+    checkpoint = str(export_path.joinpath('model.ckpt').resolve())
+
     saver = tf.train.Saver()
-    # checkpoint - variables
-    if not os.path.exists(export_path):
-        os.makedirs(export_path)
-        
     saver.save(sess, checkpoint)
 
     # graph
-    tf.train.write_graph(sess.graph_def, export_path, "model.pb", as_text=False)
+    tf.train.write_graph(sess.graph_def, str(export_path), "model.pb", as_text=False)
 
     # freeze
     g = os.path.join(export_path, "model.pb")
