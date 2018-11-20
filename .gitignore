@@ -102,3 +102,9 @@ venv.bak/
 
 # mypy
 .mypy_cache/
+
+# training
+data/
+outputs/
+logs/
+aml_config/
