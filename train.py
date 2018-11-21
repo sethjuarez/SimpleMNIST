@@ -11,7 +11,8 @@ from misc.digits import Digits
 @print_info
 def linear_model(x):
     with tf.name_scope("Model"):
-        pred = tf.layers.dense(inputs=x, units=10, activation=tf.nn.softmax)
+        pred = tf.layers.dense(inputs=x, units=10, 
+                               activation=tf.nn.softmax)
         return tf.identity(pred, name="prediction")
 
 @print_info
@@ -50,10 +51,10 @@ def train_model(x, y, cost, optimizer, accuracy, learning_rate, batch_size, epoc
         run = None
 
     # log paramters
-    aml_log(run, learning_rate=learning_rate,
-            batch_size=batch_size, epochs=epochs,
-            data_dir=data_dir, outputs_dir=outputs_dir,
-            logs_dir=logs_dir)
+    #aml_log(run, learning_rate=learning_rate,
+    #        batch_size=batch_size, epochs=epochs,
+    #        data_dir=data_dir, outputs_dir=outputs_dir,
+    #        logs_dir=logs_dir)
 
     info('Initializing Devices')
     print(' ')
@@ -99,7 +100,7 @@ def train_model(x, y, cost, optimizer, accuracy, learning_rate, batch_size, epoc
             acc = accuracy.eval({x: test_x, y: test_y})
             print("\r    Cost: {:5.4f}, Accuracy: {:5.4f}\n".format(avg_cost, acc))
             # aml log
-            aml_log(run, cost=avg_cost, accuracy=acc)
+            #aml_log(run, cost=avg_cost, accuracy=acc)
         
         # save model
         info("Saving Model")
