@@ -44,6 +44,14 @@ class Digits:
         
         return x, y
 
+    def __getitem__(self, index):
+        index = 0 if index < 0 else index
+        index = self._train_count - 1 if index > self._train_count else index
+        x = self._trainX[index, :]
+        y = self._trainY[index]
+
+        return x, y
+
     @property
     def test(self):
         return self._testX, self._testY
@@ -72,4 +80,8 @@ class Digits:
 if __name__ == "__main__":
     p = os.path.abspath('..\\data')
     digits = Digits(p, 1000)
-    digits.stringify(656)
+
+    idx = 756
+    digits.stringify(idx)
+    np.savetxt('v.txt', digits[idx][0]*255, delimiter=',', fmt='%d', newline=',')
+    print(digits[idx][1])

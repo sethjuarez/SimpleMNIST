@@ -51,10 +51,10 @@ def train_model(x, y, cost, optimizer, accuracy, learning_rate, batch_size, epoc
         run = None
 
     # log paramters
-    #aml_log(run, learning_rate=learning_rate,
-    #        batch_size=batch_size, epochs=epochs,
-    #        data_dir=data_dir, outputs_dir=outputs_dir,
-    #        logs_dir=logs_dir)
+    aml_log(run, learning_rate=learning_rate,
+            batch_size=batch_size, epochs=epochs,
+            data_dir=data_dir, outputs_dir=outputs_dir,
+            logs_dir=logs_dir)
 
     info('Initializing Devices')
     print(' ')
@@ -100,7 +100,7 @@ def train_model(x, y, cost, optimizer, accuracy, learning_rate, batch_size, epoc
             acc = accuracy.eval({x: test_x, y: test_y})
             print("\r    Cost: {:5.4f}, Accuracy: {:5.4f}\n".format(avg_cost, acc))
             # aml log
-            #aml_log(run, cost=avg_cost, accuracy=acc)
+            aml_log(run, cost=avg_cost, accuracy=acc)
         
         # save model
         info("Saving Model")
@@ -117,7 +117,7 @@ def main(settings):
     y = tf.placeholder(tf.float32, [None, 10], name='y')
 
     # model
-    hx = linear_model(x)
+    hx = cnn_model(x)
 
     # accuracy
     accuracy = tf.reduce_mean(tf.cast(tf.equal(tf.argmax(hx, 1), tf.argmax(y, 1)), tf.float32))
