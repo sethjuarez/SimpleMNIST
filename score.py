@@ -22,6 +22,7 @@ def init():
     with tf.Graph().as_default() as graph:
         tf.import_graph_def(graph_def, name='simplemnist')
 
+    print('Initialized model "{}" at {}'.format(model_path, datetime.datetime.now()))
     model = graph
 
 def run(raw_data):
@@ -47,6 +48,8 @@ def run(raw_data):
         'scores': pred.tolist()
     }
 
+    print('Input ({}), Prediction ({})'.format(post['image'], payload))
+
     return payload
 
 if __name__ == "__main__":
@@ -57,4 +60,3 @@ if __name__ == "__main__":
 
     init()
     out = run(json.dumps(data))
-    print(out)

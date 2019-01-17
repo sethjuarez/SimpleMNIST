@@ -16,6 +16,17 @@ def linear_model(x):
         return tf.identity(pred, name="prediction")
 
 @print_info
+def mlp_model(x):
+    # hidden layers
+    h1 = tf.layers.dense(inputs=x, units=512, activation=tf.nn.relu)
+    h2 = tf.layers.dense(inputs=h1, units=512, activation=tf.nn.relu)
+
+    # output layer
+    with tf.name_scope("Model"):
+        pred = tf.layers.dense(inputs=h2, units=10, activation=tf.nn.softmax)
+        return tf.identity(pred, name="prediction")
+
+@print_info
 def cnn_model(x):
     conv1 = tf.layers.conv2d(inputs=tf.reshape(x, [-1, 28, 28, 1]), 
                              filters=32, 
